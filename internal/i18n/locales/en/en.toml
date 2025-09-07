@@ -1,0 +1,169 @@
+# Command descriptions
+[cmd.root.short]
+other = "Manage Claude Code configurations"
+
+[cmd.root.long]
+other = "ctx-tool is a CLI application for managing Claude Code configurations across projects. It helps sync configuration files from a central repository to your local projects."
+
+[cmd.add.short]
+other = "Add configurations from repository"
+
+[cmd.add.long]
+other = "Add configurations from the PRPs-agentic-eng repository to your current project. You can install all configurations or specific directories."
+
+[cmd.add.example]
+other = """
+  ctx-tool add --all                      # Install all directories to .claude folder
+  ctx-tool add --target /custom/path --all # Install to custom directory
+  ctx-tool add prompts tools              # Install specific directories
+  ctx-tool add --global --all             # Install to global .claude folder"""
+
+[cmd.remove.short]
+other = "Remove tracked configurations"
+
+[cmd.remove.long]
+other = "Remove previously installed configurations from your project. This command will only remove files that were tracked during installation."
+
+[cmd.remove.example]
+other = """
+  ctx-tool remove            # Remove project installations from .claude folder
+  ctx-tool remove --global   # Remove global installations from ~/.claude folder"""
+
+# User interaction messages - Add command
+[msg.add.installation_scope]
+other = "Installation scope: {{.Scope}}"
+
+[msg.add.target_directory]
+other = "Target directory: {{.Target}}"
+
+[msg.add.syncing_all]
+other = "Syncing all directories..."
+
+[msg.add.syncing_directory]
+other = "Syncing directory: {{.Dir}}"
+
+[msg.add.installation_complete]
+other = "✅ Installation complete!"
+
+[msg.add.tracking_file_saved]
+other = "Tracking file saved to: {{.Path}}"
+
+[msg.add.files_installed]
+one = "{{.Count}} file installed"
+other = "{{.Count}} files installed"
+
+# User interaction messages - Remove command
+[msg.remove.removal_scope]
+other = "Removal scope: {{.Scope}}"
+
+[msg.remove.found_tracked_files]
+one = "Found {{.Count}} tracked file:"
+other = "Found {{.Count}} tracked files:"
+
+[msg.remove.confirm_removal]
+other = "Are you sure you want to remove these files? (yes/no): "
+
+[msg.remove.removal_cancelled]
+other = "Removal cancelled"
+
+[msg.remove.removal_complete]
+other = "✅ Removal complete!"
+
+[msg.remove.files_removed]
+one = "{{.Count}} file removed"
+other = "{{.Count}} files removed"
+
+[msg.remove.no_tracked_files]
+other = "No tracked files found in {{.Path}}"
+
+# Git messages
+[msg.git.cloning_repository]
+other = "Cloning repository {{.Repo}} (branch: {{.Branch}})..."
+
+[msg.git.repository_cloned]
+other = "Repository cloned to {{.Path}}"
+
+[msg.git.clone_success]
+other = "Repository cloned successfully"
+
+# Sync messages
+[msg.sync.syncing_directory]
+other = "Syncing directory: {{.Dir}}"
+
+[msg.sync.skip_identical]
+other = "Skip {{.File}} (identical)"
+
+[msg.sync.backed_up]
+other = "Backed up {{.Original}} to {{.Backup}}"
+
+[msg.sync.installed]
+other = "Installed {{.File}}"
+
+[msg.sync.warning_dir_not_found]
+other = "Warning: Directory {{.Dir}} not found in repository, skipping"
+
+# Error messages - Config
+[err.config.load]
+other = "Failed to load configuration: {{.Error}}"
+
+[err.config.not_found]
+other = "Configuration file not found"
+
+[err.config.invalid]
+other = "Invalid configuration format"
+
+# Error messages - File operations
+[err.file.read]
+other = "Failed to read file {{.Path}}: {{.Error}}"
+
+[err.file.write]
+other = "Failed to write file {{.Path}}: {{.Error}}"
+
+[err.file.create]
+other = "Failed to create file {{.Path}}: {{.Error}}"
+
+[err.file.delete]
+other = "Failed to delete file {{.Path}}: {{.Error}}"
+
+[err.dir.create]
+other = "Failed to create directory {{.Path}}: {{.Error}}"
+
+[err.permission_denied]
+other = "Permission denied: {{.Path}}"
+
+# Error messages - Git
+[err.git.clone]
+other = "Failed to clone repository: {{.Error}}"
+
+[err.git.open]
+other = "Failed to open repository: {{.Error}}"
+
+[err.git.pull]
+other = "Failed to pull repository: {{.Error}}"
+
+# Error messages - Tracker
+[err.tracker.load]
+other = "Failed to load tracking file: {{.Error}}"
+
+[err.tracker.save]
+other = "Failed to save tracking file: {{.Error}}"
+
+[err.tracker.not_found]
+other = "Tracking file not found at {{.Path}}"
+
+# Error messages - Sync
+[err.sync.failed]
+other = "Sync operation failed: {{.Error}}"
+
+[err.sync.backup_failed]
+other = "Failed to create backup: {{.Error}}"
+
+# Error messages - Command
+[err.cmd.invalid_scope]
+other = "Invalid scope: {{.Scope}}"
+
+[err.cmd.invalid_target]
+other = "Invalid target directory: {{.Target}}"
+
+[err.cmd.missing_argument]
+other = "Missing required argument: {{.Arg}}"

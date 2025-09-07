@@ -1,0 +1,75 @@
+# Compiled binary (the main program)
+ctx-tool
+
+# Go binaries for various architectures
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool
+*.out
+
+# Go workspace file
+go.work
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+.tmp/
+
+# Log files
+*.log
+logs/
+
+# Config tracking files (project-specific)
+.ctx-tool-tracking.json
+.ctx-tool-zh.yaml
+.ctx-tool.yaml
+
+# Build directories
+build/
+dist/
+bin/
+
+# Dependency directories
+vendor/
+
+# Go module download cache
+go.sum.bak
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Coverage reports
+coverage.txt
+coverage.html
+coverage.out
+
+# Profile output files
+*.prof
+*PRP*/
+.claude/
+.*.yaml

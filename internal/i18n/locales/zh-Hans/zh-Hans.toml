@@ -1,0 +1,169 @@
+# 命令描述
+[cmd.root.short]
+other = "管理 Claude Code 配置"
+
+[cmd.root.long]
+other = "ctx-tool 是一个用于管理跨项目 Claude Code 配置的 CLI 应用程序。它帮助您从中央仓库同步配置文件到本地项目。"
+
+[cmd.add.short]
+other = "从仓库添加配置"
+
+[cmd.add.long]
+other = "从 PRPs-agentic-eng 仓库添加配置到您的当前项目。您可以安装所有配置或指定特定目录。"
+
+[cmd.add.example]
+other = """
+  ctx-tool add --all                      # 安装所有目录到 .claude 文件夹
+  ctx-tool add --target /custom/path --all # 安装到自定义目录
+  ctx-tool add prompts tools              # 安装特定目录
+  ctx-tool add --global --all             # 安装到全局 .claude 文件夹"""
+
+[cmd.remove.short]
+other = "移除已跟踪的配置"
+
+[cmd.remove.long]
+other = "从您的项目中移除之前安装的配置。此命令只会移除在安装期间被跟踪的文件。"
+
+[cmd.remove.example]
+other = """
+  ctx-tool remove            # 从 .claude 文件夹移除项目安装
+  ctx-tool remove --global   # 从 ~/.claude 文件夹移除全局安装"""
+
+# 用户交互消息 - Add 命令
+[msg.add.installation_scope]
+other = "安装范围：{{.Scope}}"
+
+[msg.add.target_directory]
+other = "目标目录：{{.Target}}"
+
+[msg.add.syncing_all]
+other = "正在同步所有目录..."
+
+[msg.add.syncing_directory]
+other = "正在同步目录：{{.Dir}}"
+
+[msg.add.installation_complete]
+other = "✅ 安装完成！"
+
+[msg.add.tracking_file_saved]
+other = "跟踪文件已保存到：{{.Path}}"
+
+[msg.add.files_installed]
+one = "已安装 {{.Count}} 个文件"
+other = "已安装 {{.Count}} 个文件"
+
+# 用户交互消息 - Remove 命令
+[msg.remove.removal_scope]
+other = "移除范围：{{.Scope}}"
+
+[msg.remove.found_tracked_files]
+one = "找到 {{.Count}} 个跟踪文件："
+other = "找到 {{.Count}} 个跟踪文件："
+
+[msg.remove.confirm_removal]
+other = "您确定要移除这些文件吗？(yes/no)："
+
+[msg.remove.removal_cancelled]
+other = "移除已取消"
+
+[msg.remove.removal_complete]
+other = "✅ 移除完成！"
+
+[msg.remove.files_removed]
+one = "已移除 {{.Count}} 个文件"
+other = "已移除 {{.Count}} 个文件"
+
+[msg.remove.no_tracked_files]
+other = "在 {{.Path}} 中未找到跟踪文件"
+
+# Git 消息
+[msg.git.cloning_repository]
+other = "正在克隆仓库 {{.Repo}}（分支：{{.Branch}}）..."
+
+[msg.git.repository_cloned]
+other = "仓库已克隆到 {{.Path}}"
+
+[msg.git.clone_success]
+other = "仓库克隆成功"
+
+# 同步消息
+[msg.sync.syncing_directory]
+other = "正在同步目录：{{.Dir}}"
+
+[msg.sync.skip_identical]
+other = "跳过 {{.File}}（文件相同）"
+
+[msg.sync.backed_up]
+other = "已备份 {{.Original}} 到 {{.Backup}}"
+
+[msg.sync.installed]
+other = "已安装 {{.File}}"
+
+[msg.sync.warning_dir_not_found]
+other = "警告：在仓库中未找到目录 {{.Dir}}，跳过"
+
+# 错误消息 - 配置
+[err.config.load]
+other = "加载配置失败：{{.Error}}"
+
+[err.config.not_found]
+other = "未找到配置文件"
+
+[err.config.invalid]
+other = "配置格式无效"
+
+# 错误消息 - 文件操作
+[err.file.read]
+other = "读取文件 {{.Path}} 失败：{{.Error}}"
+
+[err.file.write]
+other = "写入文件 {{.Path}} 失败：{{.Error}}"
+
+[err.file.create]
+other = "创建文件 {{.Path}} 失败：{{.Error}}"
+
+[err.file.delete]
+other = "删除文件 {{.Path}} 失败：{{.Error}}"
+
+[err.dir.create]
+other = "创建目录 {{.Path}} 失败：{{.Error}}"
+
+[err.permission_denied]
+other = "权限被拒绝：{{.Path}}"
+
+# 错误消息 - Git
+[err.git.clone]
+other = "克隆仓库失败：{{.Error}}"
+
+[err.git.open]
+other = "打开仓库失败：{{.Error}}"
+
+[err.git.pull]
+other = "拉取仓库失败：{{.Error}}"
+
+# 错误消息 - 跟踪器
+[err.tracker.load]
+other = "加载跟踪文件失败：{{.Error}}"
+
+[err.tracker.save]
+other = "保存跟踪文件失败：{{.Error}}"
+
+[err.tracker.not_found]
+other = "在 {{.Path}} 未找到跟踪文件"
+
+# 错误消息 - 同步
+[err.sync.failed]
+other = "同步操作失败：{{.Error}}"
+
+[err.sync.backup_failed]
+other = "创建备份失败：{{.Error}}"
+
+# 错误消息 - 命令
+[err.cmd.invalid_scope]
+other = "无效的范围：{{.Scope}}"
+
+[err.cmd.invalid_target]
+other = "无效的目标目录：{{.Target}}"
+
+[err.cmd.missing_argument]
+other = "缺少必需的参数：{{.Arg}}"
