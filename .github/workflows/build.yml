@@ -1,0 +1,110 @@
+name: Build and Release
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  packages: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          # Windows
+          - goos: windows
+            goarch: amd64
+            output: ctx-tool.exe
+          - goos: windows
+            goarch: arm64
+            output: ctx-tool.exe
+          # Linux
+          - goos: linux
+            goarch: amd64
+            output: ctx-tool
+          - goos: linux
+            goarch: arm64
+            output: ctx-tool
+          # macOS
+          - goos: darwin
+            goarch: amd64
+            output: ctx-tool
+          - goos: darwin
+            goarch: arm64
+            output: ctx-tool
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: '1.25'
+
+    - name: Cache Go modules
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.cache/go-build
+          ~/go/pkg/mod
+        key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+        restore-keys: |
+          ${{ runner.os }}-go-
+
+    - name: Build binary
+      env:
+        GOOS: ${{ matrix.goos }}
+        GOARCH: ${{ matrix.goarch }}
+        CGO_ENABLED: 0
+      run: |
+        mkdir -p dist
+        go build -ldflags="-s -w" -o dist/${{ matrix.output }} .
+
+    - name: Create archive
+      run: |
+        cd dist
+        if [ "${{ matrix.goos }}" = "windows" ]; then
+          7z a ../ctx-tool-${{ matrix.goos }}-${{ matrix.goarch }}.zip ${{ matrix.output }}
+        else
+          tar -czf ../ctx-tool-${{ matrix.goos }}-${{ matrix.goarch }}.tar.gz ${{ matrix.output }}
+        fi
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: ctx-tool-${{ matrix.goos }}-${{ matrix.goarch }}
+        path: |
+          *.zip
+          *.tar.gz
+        retention-days: 30
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    
+    steps:
+    - name: Download all artifacts
+      uses: actions/download-artifact@v4
+      
+    - name: Create Release
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        # Generate release tag based on commit
+        TAG="v$(date +%Y%m%d%H%M%S)-$(echo ${{ github.sha }} | cut -c1-7)"
+        
+        # Create release
+        gh release create "$TAG" \
+          --repo ${{ github.repository }} \
+          --title "Release $TAG" \
+          --notes "Automated release from commit ${{ github.sha }}" \
+          --generate-notes \
+          ctx-tool-*/ctx-tool-*
